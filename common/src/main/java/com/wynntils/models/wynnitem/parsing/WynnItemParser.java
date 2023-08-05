@@ -70,8 +70,8 @@ public final class WynnItemParser {
         GearTier tier = null;
         String itemType = "";
         boolean setBonusStats = false;
-        Optional<Pair<String,Integer>> shinyStat = Optional.empty();
         boolean parsingEffects = false;
+        Optional<Pair<String, Integer>> shinyStat = Optional.empty();
         String effectsColorCode = "";
 
         // Parse lore for identifications, powders and rerolls
@@ -198,20 +198,28 @@ public final class WynnItemParser {
                 StatPossibleValues possibleValues = gearInfo != null ? gearInfo.getPossibleValues(statType) : null;
                 StatActualValue actualValue = Models.Stat.buildActualValue(statType, value, stars, possibleValues);
                 identifications.add(actualValue);
-
             }
 
             // Look for shiny stat
             Matcher shinyStatMatcher = normalizedCoded.getMatcher(SHINY_STAT_PATTERN);
-            if(shinyStatMatcher.matches() && shinyStat.isEmpty()){
+            if (shinyStatMatcher.matches() && shinyStat.isEmpty()) {
                 String statName = shinyStatMatcher.group(1);
                 int stat = Integer.parseInt(shinyStatMatcher.group(2));
-                shinyStat = Optional.of(Pair.of(statName,stat));
+                shinyStat = Optional.of(Pair.of(statName, stat));
             }
         }
 
         return new WynnItemParseResult(
-                tier, itemType, level, identifications, effects, powders, tierCount, tierCount, durabilityMax, shinyStat);
+                tier,
+                itemType,
+                level,
+                identifications,
+                effects,
+                powders,
+                tierCount,
+                tierCount,
+                durabilityMax,
+                shinyStat);
     }
 
     public static WynnItemParseResult parseInternalRolls(GearInfo gearInfo, JsonObject itemData) {
@@ -258,7 +266,8 @@ public final class WynnItemParser {
                 ? itemData.get("identification_rolls").getAsInt()
                 : 0;
 
-        return new WynnItemParseResult(gearInfo.tier(), "", 0, identifications, List.of(), powders, rerolls, 0, 0, Optional.empty());
+        return new WynnItemParseResult(
+                gearInfo.tier(), "", 0, identifications, List.of(), powders, rerolls, 0, 0, Optional.empty());
     }
 
     private static StatActualValue getStatActualValue(GearInfo gearInfo, StatType statType, int internalRoll) {
