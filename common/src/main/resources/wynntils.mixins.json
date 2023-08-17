@@ -40,6 +40,7 @@
     "ScoreboardMixin",
     "ScreenMixin",
     "SlotMixin",
+    "accessors.PackSourceAccessor",
     "accessors.ChatScreenAccessor",
     "accessors.ClientboundBossEventPacketAccessor",
     "accessors.ClientboundSetPlayerTeamPacketAccessor",

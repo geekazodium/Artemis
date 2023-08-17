@@ -10,12 +10,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.wynntils.core.consumers.screens.WynntilsScreen;
 import com.wynntils.core.events.MixinHelper;
-import com.wynntils.mc.event.ItemTooltipRenderEvent;
-import com.wynntils.mc.event.PauseMenuInitEvent;
-import com.wynntils.mc.event.ScreenFocusEvent;
-import com.wynntils.mc.event.ScreenInitEvent;
-import com.wynntils.mc.event.ScreenRenderEvent;
-import com.wynntils.mc.event.TitleScreenInitEvent;
+import com.wynntils.mc.event.*;
 import com.wynntils.mc.extension.ScreenExtension;
 import com.wynntils.screens.base.widgets.TextInputBoxWidget;
 import java.util.List;
@@ -26,6 +21,7 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
@@ -56,6 +52,8 @@ public abstract class ScreenMixin implements ScreenExtension {
             MixinHelper.postAlways(new TitleScreenInitEvent.Post(titleScreen));
         } else if (screen instanceof PauseScreen pauseMenuScreen) {
             MixinHelper.post(new PauseMenuInitEvent(pauseMenuScreen));
+        } else if (screen instanceof PackSelectionScreen selectionScreen){
+            MixinHelper.postAlways(new PackSelectionInitEvent(selectionScreen));
         }
     }
 
