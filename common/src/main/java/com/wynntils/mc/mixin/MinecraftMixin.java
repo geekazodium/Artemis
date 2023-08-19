@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
@@ -67,5 +68,10 @@ public abstract class MinecraftMixin {
         AccessPackRepositoryEvent event = new AccessPackRepositoryEvent(minecraft, this.resourcePackRepository);
         WynntilsMod.postEvent(event);
         return event.repository();
+    }
+
+    @Inject(method = "<init>",at = @At("HEAD"),locals = LocalCapture.CAPTURE_FAILHARD)
+    private void onInit(GameConfig gameConfig){
+
     }
 }

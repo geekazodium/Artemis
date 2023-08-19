@@ -45,39 +45,4 @@ public class AutoApplyResourcePackFeature extends Feature {
             Services.ResourcePack.setRequestedPreloadHash(packHash);
         }
     }
-
-    private PackRepository wynncraftPackRepository;
-
-    @SubscribeEvent
-    public void onPackRepositoryAccess(AccessPackRepositoryEvent event){
-        if(wynncraftPackRepository == null){
-            wynncraftPackRepository = new PackRepository(((PackSourceAccessor) event.repository()).sources().toArray(new RepositorySource[]{}));
-            wynncraftPackRepository.reload();
-        }
-        if(this.shouldUseWynncraftResources()){
-            event.setRepository(wynncraftPackRepository);
-        }
-    }
-
-    @SubscribeEvent
-    public void onScreenInit(PackSelectionInitEvent event){
-        PackSelectionScreen screen = event.getSelectionScreen();
-        screen.addRenderableWidget(new Button.Builder(Component.literal("wynncraft").withStyle(this.usingWynncraftResources? ChatFormatting.GREEN:ChatFormatting.RED), button->{
-            screen.onClose();
-            this.usingWynncraftResources = !this.usingWynncraftResources;
-        }).bounds(10,screen.height-30,100,20).build());
-    }
-
-    @SubscribeEvent
-    public void onTargetScreenInit(ScreenInitEvent event){
-        if(event.getScreen()instanceof PackSelectionScreen selectionScreen) {
-            this.onScreenInit(new PackSelectionInitEvent(selectionScreen));
-        }
-    }
-
-    private boolean usingWynncraftResources = false;
-    public boolean shouldUseWynncraftResources(){
-        return usingWynncraftResources;
-    }
-
 }
