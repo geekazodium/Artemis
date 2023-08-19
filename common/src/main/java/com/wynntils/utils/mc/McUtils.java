@@ -104,7 +104,7 @@ public final class McUtils {
         mc().getConnection().sendChat(command);
     }
 
-    public static WynntilsPackRepository getPackRepository(){
+    public static WynntilsPackRepository getPackRepository() {
         PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
         return (WynntilsPackRepository) packRepository;
     }

@@ -10,7 +10,13 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.wynntils.core.consumers.screens.WynntilsScreen;
 import com.wynntils.core.events.MixinHelper;
-import com.wynntils.mc.event.*;
+import com.wynntils.mc.event.ItemTooltipRenderEvent;
+import com.wynntils.mc.event.PackSelectionInitEvent;
+import com.wynntils.mc.event.PauseMenuInitEvent;
+import com.wynntils.mc.event.ScreenFocusEvent;
+import com.wynntils.mc.event.ScreenInitEvent;
+import com.wynntils.mc.event.ScreenRenderEvent;
+import com.wynntils.mc.event.TitleScreenInitEvent;
 import com.wynntils.mc.extension.ScreenExtension;
 import com.wynntils.screens.base.widgets.TextInputBoxWidget;
 import java.util.List;
@@ -52,7 +58,7 @@ public abstract class ScreenMixin implements ScreenExtension {
             MixinHelper.postAlways(new TitleScreenInitEvent.Post(titleScreen));
         } else if (screen instanceof PauseScreen pauseMenuScreen) {
             MixinHelper.post(new PauseMenuInitEvent(pauseMenuScreen));
-        } else if (screen instanceof PackSelectionScreen selectionScreen){
+        } else if (screen instanceof PackSelectionScreen selectionScreen) {
             MixinHelper.postAlways(new PackSelectionInitEvent(selectionScreen));
         }
     }
