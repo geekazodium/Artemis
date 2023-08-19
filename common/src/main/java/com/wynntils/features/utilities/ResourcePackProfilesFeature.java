@@ -1,5 +1,6 @@
 package com.wynntils.features.utilities;
 
+import com.wynntils.core.consumers.features.Feature;
 import com.wynntils.mc.event.AccessPackRepositoryEvent;
 import com.wynntils.mc.event.PackSelectionInitEvent;
 import com.wynntils.mc.event.ScreenInitEvent;
@@ -12,7 +13,7 @@ import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.RepositorySource;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class ResourcePackProfilesFeature {
+public class ResourcePackProfilesFeature extends Feature {
 
     private PackRepository wynncraftPackRepository;
 

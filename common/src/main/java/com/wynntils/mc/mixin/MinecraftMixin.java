@@ -70,8 +70,8 @@ public abstract class MinecraftMixin {
         return event.repository();
     }
 
-    @Inject(method = "<init>",at = @At("HEAD"),locals = LocalCapture.CAPTURE_FAILHARD)
-    private void onInit(GameConfig gameConfig){
+    @Inject(method = "<init>",at = @At("RETURN"),locals = LocalCapture.CAPTURE_FAILHARD)
+    private void onInit(GameConfig gameConfig, CallbackInfo ci){
 
     }
 }

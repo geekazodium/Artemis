@@ -137,11 +137,7 @@ import com.wynntils.features.ui.SoulPointTimerFeature;
 import com.wynntils.features.ui.WynncraftButtonFeature;
 import com.wynntils.features.ui.WynncraftPauseScreenFeature;
 import com.wynntils.features.ui.WynntilsContentBookFeature;
-import com.wynntils.features.utilities.AutoApplyResourcePackFeature;
-import com.wynntils.features.utilities.GammabrightFeature;
-import com.wynntils.features.utilities.SilencerFeature;
-import com.wynntils.features.utilities.TranscribeMessagesFeature;
-import com.wynntils.features.utilities.TranslationFeature;
+import com.wynntils.features.utilities.*;
 import com.wynntils.features.wynntils.BetaWarningFeature;
 import com.wynntils.features.wynntils.ChangelogFeature;
 import com.wynntils.features.wynntils.CommandsFeature;
@@ -353,6 +349,7 @@ public final class FeatureManager extends Manager {
         registerFeature(new DiscordRichPresenceFeature());
         registerFeature(new MythicFoundFeature());
         registerFeature(new TerritoryDefenseMessageFeature());
+        registerFeature(new ResourcePackProfilesFeature());
         // endregion
 
         // Reload Minecraft's config files so our own keybinds get loaded
