@@ -5,6 +5,7 @@
 package com.wynntils.utils.mc;
 
 import com.mojang.blaze3d.platform.Window;
+import com.wynntils.WynntilsPackRepository;
 import com.wynntils.core.WynntilsMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -100,5 +102,10 @@ public final class McUtils {
 
     public static void sendChat(String command) {
         mc().getConnection().sendChat(command);
+    }
+
+    public static WynntilsPackRepository getPackRepository(){
+        PackRepository packRepository = Minecraft.getInstance().getResourcePackRepository();
+        return (WynntilsPackRepository) packRepository;
     }
 }

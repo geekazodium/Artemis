@@ -30,10 +30,15 @@ public class PackRepositoryMixin implements WynntilsPackRepository {
     }
 
     @Override
-    public void setUsingWynntils(boolean b) {
+    public void setUsingWynntilsPack(boolean b) {
         if(usingWynntilsPacks!=b){
             usingWynntilsPacks = b;
             McUtils.mc().reloadResourcePacks();
         }
+    }
+
+    @Override
+    public boolean isUsingWynntilsPack() {
+        return usingWynntilsPacks;
     }
 }
