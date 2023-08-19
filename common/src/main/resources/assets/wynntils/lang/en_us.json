@@ -910,6 +910,10 @@
   "feature.wynntils.replaceRecipeBook.name": "Replace Recipe Book",
   "feature.wynntils.shamanMaskOverlay.description": "Adds an overlay to see the current shaman masks.",
   "feature.wynntils.shamanMaskOverlay.name": "Shaman Masks",
+  //stuff added here
+  "feature.wynntils.resourcePackProfiles.name":"Resource Pack Profiles",
+  "feature.wynntils.resourcePackProfiles.description":"//TODO: this is a placeholder.",
+
   "feature.wynntils.shamanMaskOverlay.overlay.shamanMask.displayNone.description": "Should the overlay be shown if your current mask is None?",
   "feature.wynntils.shamanMaskOverlay.overlay.shamanMask.displayNone.name": "Display None Mask",
   "feature.wynntils.shamanMaskOverlay.overlay.shamanMask.hideMaskTitles.description": "Should titles be hidden about masks?",
