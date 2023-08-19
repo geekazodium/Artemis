@@ -41,6 +41,7 @@
     "PackSelectionScreenMixin",
     "ScreenMixin",
     "SlotMixin",
+    "PackRepositoryMixin",
     "accessors.PackSelectionScreenAccessor",
     "accessors.PackSourceAccessor",
     "accessors.ChatScreenAccessor",

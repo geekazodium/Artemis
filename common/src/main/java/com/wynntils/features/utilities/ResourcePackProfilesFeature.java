@@ -1,10 +1,12 @@
 package com.wynntils.features.utilities;
 
 import com.wynntils.core.consumers.features.Feature;
+import com.wynntils.core.persisted.Persisted;
 import com.wynntils.mc.event.AccessPackRepositoryEvent;
 import com.wynntils.mc.event.PackSelectionInitEvent;
 import com.wynntils.mc.event.ScreenInitEvent;
 import com.wynntils.mc.mixin.accessors.PackSourceAccessor;
+import com.wynntils.utils.mc.McUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
@@ -34,7 +36,7 @@ public class ResourcePackProfilesFeature extends Feature {
         screen.addRenderableWidget(new Button.Builder(Component.literal("wynncraft").withStyle(this.usingWynncraftResources? ChatFormatting.GREEN:ChatFormatting.RED), button->{
             screen.onClose();
             this.usingWynncraftResources = !this.usingWynncraftResources;
-            // Minecraft.getInstance().reloadResourcePacks();
+            McUtils.mc().reloadResourcePacks();
 
         }).bounds(10,screen.height-30,100,20).build());
     }

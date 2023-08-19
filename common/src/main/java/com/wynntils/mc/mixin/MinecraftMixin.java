@@ -4,26 +4,17 @@
  */
 package com.wynntils.mc.mixin;
 
-import com.wynntils.core.WynntilsMod;
 import com.wynntils.core.events.MixinHelper;
 import com.wynntils.mc.event.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.main.GameConfig;
-import net.minecraft.server.packs.repository.PackRepository;
-import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
-    @Shadow @Final private PackRepository resourcePackRepository;
 
     @Inject(method = "setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", at = @At("RETURN"))
     private void setScreenPost(Screen screen, CallbackInfo ci) {
@@ -54,24 +45,5 @@ public abstract class MinecraftMixin {
     @Inject(method = "resizeDisplay()V", at = @At("RETURN"))
     private void resizeDisplayPost(CallbackInfo ci) {
         MixinHelper.postAlways(new DisplayResizeEvent());
-    }
-
-    @Redirect(
-            method = "*",
-            at =
-                    @At(
-                            value = "FIELD",
-                            target = "Lnet/minecraft/client/Minecraft;resourcePackRepository:"
-                                    + "Lnet/minecraft/server/packs/repository/PackRepository;",
-                            opcode = Opcodes.GETFIELD))
-    private PackRepository onAccessPackRepository(Minecraft minecraft) {
-        AccessPackRepositoryEvent event = new AccessPackRepositoryEvent(minecraft, this.resourcePackRepository);
-        WynntilsMod.postEvent(event);
-        return event.repository();
-    }
-
-    @Inject(method = "<init>",at = @At("RETURN"),locals = LocalCapture.CAPTURE_FAILHARD)
-    private void onInit(GameConfig gameConfig, CallbackInfo ci){
-
     }
 }
