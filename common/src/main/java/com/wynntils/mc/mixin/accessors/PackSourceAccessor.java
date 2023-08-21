@@ -4,14 +4,12 @@
  */
 package com.wynntils.mc.mixin.accessors;
 
-import java.util.Set;
-import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraft.server.packs.repository.RepositorySource;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(PackRepository.class)
+@Mixin(PackSelectionScreen.class)
 public interface PackSourceAccessor {
-    @Accessor("sources")
-    Set<RepositorySource> sources();
+    @Accessor("watcher")
+    PackSelectionScreen.Watcher watcher();
 }

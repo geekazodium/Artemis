@@ -913,6 +913,8 @@
   //stuff added here
   "feature.wynntils.resourcePackProfiles.name":"Resource Pack Profiles",
   "feature.wynntils.resourcePackProfiles.description":"//TODO: this is a placeholder.",
+  "feature.wynntils.resourcePackProfiles.wynntilsResources.name":"Placeholder",
+  "feature.wynntils.resourcePackProfiles.wynntilsResources.description":"Placeholder",
 
   "feature.wynntils.shamanMaskOverlay.overlay.shamanMask.displayNone.description": "Should the overlay be shown if your current mask is None?",
   "feature.wynntils.shamanMaskOverlay.overlay.shamanMask.displayNone.name": "Display None Mask",

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackRepository;
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,12 +19,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(PackRepository.class)
-public class PackRepositoryMixin implements WynntilsPackRepository {
+public abstract class PackRepositoryMixin implements WynntilsPackRepository {
     @Unique
     private boolean usingWynntilsPacks = false;
 
     @Shadow
     private List<Pack> selected;
+
+    @Shadow public abstract @Nullable Pack getPack(String id);
 
     @Unique
     private List<Pack> wynntilsSelected = new ArrayList<>();
@@ -36,6 +39,7 @@ public class PackRepositoryMixin implements WynntilsPackRepository {
                             value = "FIELD",
                             opcode = Opcodes.GETFIELD))
     private List<Pack> onGetSeleceted(PackRepository packRepository) {
+        System.out.println(usingWynntilsPacks);
         return usingWynntilsPacks ? this.wynntilsSelected : this.selected;
     }
 
@@ -50,5 +54,15 @@ public class PackRepositoryMixin implements WynntilsPackRepository {
     @Override
     public boolean isUsingWynntilsPack() {
         return usingWynntilsPacks;
+    }
+
+    @Override
+    public void loadNewPackConfig(List<String> packsConfig) {
+        List<Pack> loadedPacks = new ArrayList<>();
+        for (int i = 0; i < packsConfig.size(); i++) {
+            Pack pack = this.getPack(packsConfig.get(i));
+            loadedPacks.add(pack);
+        }
+        this.selected = loadedPacks;
     }
 }
