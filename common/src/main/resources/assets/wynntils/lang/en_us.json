@@ -1,4 +1,11 @@
 {
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesTitleScreen.name": "placeholder",
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesOtherServers.name": "placeholder",
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesSinglePlayer.name": "placeholder",
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesTitleScreen.description": "placeholder",
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesOtherServers.description": "placeholder",
+  "feature.wynntils.autoApplyResourcePack.usingWynncraftTexturesSinglePlayer.description": "placeholder",
+
   "command.wynntils.lootrun.addedNote": "Added note at %s with text: ",
   "command.wynntils.lootrun.chestAdded": "Successfully added chest at %s.",
   "command.wynntils.lootrun.chestAlreadyAdded": "Chest at %s has already been added.",
