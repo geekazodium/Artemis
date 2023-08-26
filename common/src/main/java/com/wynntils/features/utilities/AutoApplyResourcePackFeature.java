@@ -10,10 +10,9 @@ import com.wynntils.core.persisted.Persisted;
 import com.wynntils.core.persisted.config.Category;
 import com.wynntils.core.persisted.config.Config;
 import com.wynntils.core.persisted.config.ConfigCategory;
+import com.wynntils.mc.event.GetPackRepositoryEvent;
 import com.wynntils.mc.event.ResourcePackEvent;
-import com.wynntils.mc.event.ScreenClosedEvent;
 import com.wynntils.mc.event.ScreenInitEvent;
-import com.wynntils.mc.event.ScreenOpenedEvent;
 import com.wynntils.mc.event.TitleScreenInitEvent;
 import com.wynntils.utils.mc.McUtils;
 import net.minecraft.client.gui.components.Button;
@@ -22,7 +21,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.spongepowered.asm.mixin.Unique;
 
 @ConfigCategory(Category.UTILITIES)
 public class AutoApplyResourcePackFeature extends Feature {
@@ -107,5 +105,10 @@ public class AutoApplyResourcePackFeature extends Feature {
         if (!(child instanceof Button button)) return false;
         if (button.hashCode() != enableTexturesButtonHashcode) return false;
         return button == enableWynntilsTexturesButton;
+    }
+
+    @SubscribeEvent
+    public void onGetResourcePack(GetPackRepositoryEvent event){
+        System.out.println("aaaaaaaaaaaaaaaaa");
     }
 }
