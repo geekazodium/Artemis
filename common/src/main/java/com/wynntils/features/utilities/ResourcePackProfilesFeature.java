@@ -1,3 +1,7 @@
+/*
+ * Copyright © Wynntils 2023.
+ * This file is released under LGPLv3. See LICENSE for full license details.
+ */
 package com.wynntils.features.utilities;
 
 import com.wynntils.core.consumers.features.Feature;
@@ -9,6 +13,8 @@ import com.wynntils.mc.event.GetPackRepositoryEvent;
 import com.wynntils.mc.event.ScreenInitEvent;
 import com.wynntils.mc.event.TitleScreenInitEvent;
 import com.wynntils.utils.mc.McUtils;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,16 +23,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ConfigCategory(Category.UTILITIES)
 public class ResourcePackProfilesFeature extends Feature {
-
     @Persisted
     private final Config<Boolean> usingWynncraftTexturesTitleScreen = new Config<>(true);
+
     @Persisted
     private final Config<Boolean> usingWynncraftTexturesOtherServers = new Config<>(false);
+
     @Persisted
     private final Config<Boolean> usingWynncraftTexturesSinglePlayer = new Config<>(false);
 
@@ -51,7 +55,7 @@ public class ResourcePackProfilesFeature extends Feature {
         }
     }
 
-    private void toggleTitleScreenPack(){
+    private void toggleTitleScreenPack() {
         usingWynncraftTexturesTitleScreen.setValue(!usingWynncraftTexturesTitleScreen.get());
         this.setUsingWynncraftTextures(usingWynncraftTexturesTitleScreen.get());
     }
@@ -65,8 +69,8 @@ public class ResourcePackProfilesFeature extends Feature {
             return;
         }
 
-        enableWynntilsTexturesButton =
-                titleScreen.addRenderableWidget(Button.builder(Component.literal("textures"), button -> toggleTitleScreenPack())
+        enableWynntilsTexturesButton = titleScreen.addRenderableWidget(
+                Button.builder(Component.literal("textures"), button -> toggleTitleScreenPack())
                         .bounds(buttonX, buttonY, 20, 20)
                         .build());
         enableTexturesButtonHashcode = enableWynntilsTexturesButton.hashCode();
@@ -83,26 +87,24 @@ public class ResourcePackProfilesFeature extends Feature {
     }
 
     @SubscribeEvent
-    public void onGetResourcePack(GetPackRepositoryEvent event){
-        if(usingWynncraftTexturesTitleScreen.get())event.setOverridePackRepo(this.wynncraftPackRepository);
+    public void onGetResourcePack(GetPackRepositoryEvent event) {
+        if (usingWynncraftTexturesTitleScreen.get()) event.setOverridePackRepo(this.wynncraftPackRepository);
     }
-
 
     private boolean usingWynncraftTextures = false;
-    public boolean getUsingWynncraftTextures(){
+
+    public boolean getUsingWynncraftTextures() {
         return usingWynncraftTextures;
     }
+
     private void setUsingWynncraftTextures(boolean usingWynncraftTextures) {
         boolean pendingPackReload = this.usingWynncraftTextures != usingWynncraftTextures;
         this.usingWynncraftTextures = usingWynncraftTextures;
-        if(pendingPackReload){
+        if (pendingPackReload) {
             McUtils.mc().reloadResourcePacks();
         }
     }
 
-
     @Override
-    public void onEnable() {
-        System.out.println("testing 1234");
-    }
+    public void onEnable() {}
 }

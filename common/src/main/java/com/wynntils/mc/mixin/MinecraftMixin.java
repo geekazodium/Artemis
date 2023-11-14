@@ -15,14 +15,11 @@ import com.wynntils.mc.event.TickAlwaysEvent;
 import com.wynntils.mc.event.TickEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.main.GameConfig;
 import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraftforge.eventbus.api.Event;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -30,7 +27,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
-    @Shadow @Final private PackRepository resourcePackRepository;
+    @Shadow
+    @Final
+    private PackRepository resourcePackRepository;
 
     @Inject(method = "setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", at = @At("RETURN"))
     private void setScreenPost(Screen screen, CallbackInfo ci, @Share("oldScreen") LocalRef<Screen> oldScreen) {
@@ -65,12 +64,23 @@ public abstract class MinecraftMixin {
         MixinHelper.postAlways(new DisplayResizeEvent());
     }
 
-    @Redirect(method = {"rollbackResourcePacks","clearResourcePacksOnError","getResourcePackRepository","reloadResourcePacks(Z)Ljava/util/concurrent/CompletableFuture;"},at = @At(value = "FIELD",target = "Lnet/minecraft/client/Minecraft;resourcePackRepository:Lnet/minecraft/server/packs/repository/PackRepository;",opcode = Opcodes.GETFIELD))
-    private PackRepository overrideGetPackRepository(Minecraft minecraft){
+    @Redirect(
+            method = {
+                "rollbackResourcePacks",
+                "clearResourcePacksOnError",
+                "getResourcePackRepository",
+                "reloadResourcePacks(Z)Ljava/util/concurrent/CompletableFuture;"
+            },
+            at =
+                    @At(
+                            value = "FIELD",
+                            target =
+                                    "Lnet/minecraft/client/Minecraft;resourcePackRepository:Lnet/minecraft/server/packs/repository/PackRepository;",
+                            opcode = Opcodes.GETFIELD))
+    private PackRepository overrideGetPackRepository(Minecraft minecraft) {
         GetPackRepositoryEvent getPackRepositoryEvent = new GetPackRepositoryEvent();
         MixinHelper.postAlways(getPackRepositoryEvent);
         PackRepository overrideValue = getPackRepositoryEvent.getOverridePackRepository();
-        return (overrideValue == null)?resourcePackRepository:overrideValue;
+        return (overrideValue == null) ? resourcePackRepository : overrideValue;
     }
-
 }
