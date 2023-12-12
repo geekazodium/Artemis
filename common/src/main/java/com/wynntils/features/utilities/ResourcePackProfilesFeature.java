@@ -4,23 +4,17 @@
  */
 package com.wynntils.features.utilities;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
-import com.wynntils.core.WynntilsMod;
-import com.wynntils.core.components.Manager;
 import com.wynntils.core.components.Managers;
 import com.wynntils.core.consumers.features.Feature;
-import com.wynntils.core.consumers.features.FeatureManager;
 import com.wynntils.core.events.MixinHelper;
 import com.wynntils.core.persisted.Persisted;
 import com.wynntils.core.persisted.config.Category;
 import com.wynntils.core.persisted.config.Config;
 import com.wynntils.core.persisted.config.ConfigCategory;
 import com.wynntils.mc.event.GetPackRepositoryEvent;
-import com.wynntils.mc.event.RenderEvent;
 import com.wynntils.mc.event.ScreenInitEvent;
 import com.wynntils.mc.event.ScreenOpenedEvent;
 import com.wynntils.mc.event.TickAlwaysEvent;
-import com.wynntils.mc.event.TickEvent;
 import com.wynntils.mc.event.TitleScreenInitEvent;
 import com.wynntils.utils.mc.McUtils;
 import java.util.ArrayList;
@@ -33,22 +27,21 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.repository.PackRepository;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 @ConfigCategory(Category.UTILITIES)
 public class ResourcePackProfilesFeature extends Feature {
-
     private final AutoApplyResourcePackFeature wynncraftPackFeature;
     private boolean pendingPackReload;
 
-    public ResourcePackProfilesFeature(){
+    public ResourcePackProfilesFeature() {
         this(Managers.Feature.getFeatureInstance(AutoApplyResourcePackFeature.class));
     }
 
-    private ResourcePackProfilesFeature(AutoApplyResourcePackFeature autoApplyResourcePackFeature){
+    private ResourcePackProfilesFeature(AutoApplyResourcePackFeature autoApplyResourcePackFeature) {
         this.wynncraftPackFeature = autoApplyResourcePackFeature;
     }
+
     @Persisted
     private final Config<Boolean> usingWynncraftTexturesTitleScreen = new Config<>(true);
 
@@ -124,7 +117,7 @@ public class ResourcePackProfilesFeature extends Feature {
     private void setUsingWynncraftTextures(boolean usingWynncraftTextures) {
         pendingPackReload = this.usingWynncraftTextures != usingWynncraftTextures;
         this.usingWynncraftTextures = usingWynncraftTextures;
-        switch (playState){
+        switch (playState) {
             case SINGLEPLAYER -> usingWynncraftTexturesSinglePlayer.setValue(usingWynncraftTextures);
             case OTHER_SERVER -> usingWynncraftTexturesOtherServers.setValue(usingWynncraftTextures);
             case WYNNCRAFT -> System.out.println("no");
@@ -137,10 +130,10 @@ public class ResourcePackProfilesFeature extends Feature {
 
     @SubscribeEvent
     public void onGameTick(TickAlwaysEvent event) {
-        //System.out.println(usingWynncraftTextures);
+        // System.out.println(usingWynncraftTextures);
     }
 
-    private enum PlayState{
+    private enum PlayState {
         WYNNCRAFT,
         OTHER_SERVER,
         SINGLEPLAYER,
@@ -150,9 +143,9 @@ public class ResourcePackProfilesFeature extends Feature {
     private PlayState playState = PlayState.NOT_PLAYING;
 
     @SubscribeEvent
-    public void onScreenChangeEvent(ScreenOpenedEvent event){
+    public void onScreenChangeEvent(ScreenOpenedEvent event) {
         updatePlayState();
-        switch (playState){
+        switch (playState) {
             case SINGLEPLAYER -> usingWynncraftTextures = usingWynncraftTexturesSinglePlayer.get();
             case OTHER_SERVER -> usingWynncraftTextures = usingWynncraftTexturesOtherServers.get();
             case WYNNCRAFT -> usingWynncraftTextures = true;
@@ -160,25 +153,23 @@ public class ResourcePackProfilesFeature extends Feature {
         }
     }
 
-
     private void updatePlayState() {
-        if(MixinHelper.onWynncraft()){
+        if (MixinHelper.onWynncraft()) {
             playState = PlayState.WYNNCRAFT;
 
-        }else {
+        } else {
             LocalPlayer player = McUtils.player();
-            if(player == null || player.getServer() == null) {
+            if (player == null || player.getServer() == null) {
                 playState = PlayState.NOT_PLAYING;
-            }else {
+            } else {
                 MinecraftServer server = player.getServer();
-                if (server.isDedicatedServer()){
+                if (server.isDedicatedServer()) {
                     playState = PlayState.OTHER_SERVER;
-                }else{
+                } else {
                     playState = PlayState.SINGLEPLAYER;
                 }
             }
         }
         System.out.println(playState);
     }
-
 }

@@ -1,5 +1,7 @@
 {
   "client": [
+    "PackEntryMixin",
+    "PackMixin",
     "AbstractContainerScreenMixin",
     "BossHealthOverlayMixin",
     "CapeLayerMixin",

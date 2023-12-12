@@ -1,6 +1,4 @@
 {
-  "feature.wynntils.resourcePackProfiles.WynncraftSelectedTextures.description": "Placeholder wynncraftselectedtextures",
-  "feature.wynntils.resourcePackProfiles.WynncraftSelectedTextures.name": "Placeholder wynncraftselectedtextures",
   "command.wynntils.bomb.description": "List previously announced bombs",
   "command.wynntils.clearCaches.clickHere": "Click here to confirm.",
   "command.wynntils.clearCaches.deleting": "Clearing caches and closing game in 5 seconds...",
@@ -992,6 +990,8 @@
   "feature.wynntils.rangeVisualizer.name": "Major ID Range Visualizer",
   "feature.wynntils.replaceRecipeBook.description": "Replaces the recipe book to open the Item Guide.",
   "feature.wynntils.replaceRecipeBook.name": "Replace Recipe Book",
+  "feature.wynntils.resourcePackProfiles.WynncraftSelectedTextures.description": "Placeholder wynncraftselectedtextures",
+  "feature.wynntils.resourcePackProfiles.WynncraftSelectedTextures.name": "Placeholder wynncraftselectedtextures",
   "feature.wynntils.resourcePackProfiles.description": "Separate resource packs for when on wynn",
   "feature.wynntils.resourcePackProfiles.name": "Resource pack profiles",
   "feature.wynntils.resourcePackProfiles.usingWynncraftTexturesOtherServers.description": "placeholder",
