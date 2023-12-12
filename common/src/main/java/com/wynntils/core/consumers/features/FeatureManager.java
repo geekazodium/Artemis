@@ -340,7 +340,7 @@ public final class FeatureManager extends Manager {
 
         // region utilities
         registerFeature(new AutoApplyResourcePackFeature());
-        registerFeature(new ResourcePackProfilesFeature());
+        registerFeature(new ResourcePackProfilesFeature());//Depends on AutoApplyResourcePackFeature
         registerFeature(new GammabrightFeature());
         registerFeature(new PerCharacterGuildContributionFeature());
         registerFeature(new SilencerFeature());
